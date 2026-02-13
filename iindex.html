@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Swati 💖</title>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;600&family=Cinzel:wght@700&display=swap" rel="stylesheet">
+<style>
+    /* --- 1. CORE VARIABLES & RESET --- */
+    :root {
+        --primary: #ff0f7b;
+        --secondary: #f89b29;
+        --accent: #00d4ff;
+        --glass: rgba(255, 255, 255, 0.1);
+        --glass-border: rgba(255, 255, 255, 0.4);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewport="0 0 24 24" style="fill:white;stroke:pink"><circle cx="12" cy="12" r="10"/></svg>'), auto; }
+    
+    body {
+        height: 100vh;
+        overflow: hidden;
+        background: #0f0c29;
+        font-family: 'Poppins', sans-serif;
+        color: white;
+        perspective: 1000px; /* For 3D effects */
+    }
+
+    /* --- 2. ANIMATED BACKGROUND (Aurora) --- */
+    .bg-animation {
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: linear-gradient(45deg, #ff0f7b, #f89b29, #0f0c29, #240b36);
+        background-size: 400% 400%;
+        animation: gradientShift 15s ease infinite;
+        z-index: -2;
+    }
+    
+    @keyframes gradientShift { 
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+
+    /* Floating Orbs */
+    .orb {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(80px);
+        opacity: 0.6;
+        animation: floatOrb 20s infinite alternate;
+        z-index: -1;
+    }
+    .orb-1 { width: 300px; height: 300px; background: #ff0f7b; top: -50px; left: -50px; }
+    .orb-2 { width: 400px; height: 400px; background: #00d4ff; bottom: -100px; right: -100px; animation-delay: -5s; }
+
+    @keyframes floatOrb {
+        0% { transform: translate(0, 0); }
+        100% { transform: translate(50px, 50px); }
+    }
+
+    /* --- 3. LOADING SCREEN --- */
+    #loader {
+        position: fixed;
+        inset: 0;
+        background: #000;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transition: opacity 1s ease;
+    }
+    .heart-loader {
+        font-size: 4rem;
+        animation: heartBeat 1s infinite;
+    }
+    .loading-text {
+        margin-top: 20px;
+        font-family: 'Cinzel', serif;
+        letter-spacing: 3px;
+        background: linear-gradient(to right, #fff, #ff0f7b);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    /* --- 4. 3D GLASS CARD --- */
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        width: 100vw;
+    }
+
+    .card {
+        width: 900px;
+        min-height: 500px;
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(25px);
+        border: 1px solid var(--glass-border);
+        border-radius: 20px;
+        display: flex;
+        box-shadow: 0 50px 100px rgba(0,0,0,0.5), 
+                    inset 0 0 30px rgba(255,255,255,0.1);
+        transform-style: preserve-3d;
+        transform: rotateX(0deg) rotateY(0deg);
+        transition: transform 0.1s ease-out; /* Smooth follow */
+        padding: 20px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    /* Shiny Sheen Effect on Card */
+    .card::before {
+        content: '';
+        position: absolute;
+        top: 0; left: -100%;
+        width: 100%; height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+        transition: 0.5s;
+    }
+    .card:hover::before { left: 100%; transition: 1s; }
+
+    .img-box {
+        flex: 1;
+        position: relative;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        transform: translateZ(50px); /* 3D Pop out */
+    }
+
+    .img-box img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 1s;
+    }
+    .img-box:hover img { transform: scale(1.1); }
+
+    .details {
+        flex: 1;
+        padding: 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        transform: translateZ(30px); /* Text floats above card */
+    }
+
+    /* Text Effects */
+    h1 {
+        font-family: 'Cinzel', serif;
+        font-size: 3rem;
+        margin-bottom: 10px;
+        background: linear-gradient(to right, #fff, #ffd700);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+    }
+
+    p {
+        font-size: 1.1rem;
+        line-height: 1.6;
+        color: rgba(255,255,255,0.9);
+        margin-bottom: 30px;
+    }
+
+    /* Neon Buttons */
+    .btn {
+        padding: 15px 35px;
+        background: transparent;
+        border: 2px solid #fff;
+        color: #fff;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        position: relative;
+        overflow: hidden;
+        transition: 0.3s;
+        z-index: 1;
+        border-radius: 50px;
+    }
+
+    .btn::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; width: 0%; height: 100%;
+        background: #fff;
+        z-index: -1;
+        transition: 0.3s;
+    }
+
+    .btn:hover { color: #ff0f7b; box-shadow: 0 0 20px #fff; }
+    .btn:hover::before { width: 100%; }
+
+    /* --- CANVAS LAYERS --- */
+    #canvas-container {
+        position: fixed;
+        top: 0; left: 0;
+        pointer-events: none; /* Let clicks pass through */
+        z-index: 999;
+    }
+
+    /* Mobile Fix */
+    @media(max-width: 768px){
+        .card { flex-direction: column; width: 95%; min-height: auto; }
+        .img-box { height: 300px; }
+        h1 { font-size: 2rem; }
+    }
+
+    @keyframes heartBeat {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.2); }
+    }
+</style>
+</head>
+<body>
+
+    <audio id="music" loop>
+        <source src="https://files.freemusicarchive.org/storage-freemusicarchive-org/music/ccCommunity/Kai_Engel/Satin/Kai_Engel_-_04_-_Sentinel.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="bg-animation"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <canvas id="canvas-container"></canvas>
+
+    <div id="loader">
+        <div class="heart-loader">❤️</div>
+        <div class="loading-text">PREPARING ROYAL SURPRISE...</div>
+    </div>
+
+    <div class="container">
+        <div class="card" id="tiltCard">
+            <div class="img-box">
+                <img src="swati.jpeg" onerror="this.src='https://images.unsplash.com/photo-1524250502761-1ac6f2e30d43?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80'" alt="Swati">
+            </div>
+            <div class="details">
+                <h1>Happy Birthday<br>Swati 👑</h1>
+                <p id="message">You are the sparkle in the universe, the melody in the song, and the joy in every moment. May your day be as magical as you are.</p>
+                <div style="display:flex; gap:10px;">
+                    <button class="btn" onclick="startShow()">🎁 Open Gift</button>
+                    <button class="btn" onclick="nextMessage()">✨ Next Wish</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+    // --- 1. LOADER LOGIC ---
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            document.getElementById('loader').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('loader').style.display = 'none';
+            }, 1000);
+        }, 2000);
+    });
+
+    // --- 2. 3D TILT EFFECT ---
+    const card = document.getElementById('tiltCard');
+    const container = document.querySelector('.container');
+
+    container.addEventListener('mousemove', (e) => {
+        let xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+        let yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+        card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+    });
+
+    container.addEventListener('mouseenter', () => {
+        card.style.transition = 'none';
+    });
+
+    container.addEventListener('mouseleave', () => {
+        card.style.transition = 'all 0.5s ease';
+        card.style.transform = `rotateY(0deg) rotateX(0deg)`;
+    });
+
+    // --- 3. AUDIO & MESSAGES ---
+    const music = document.getElementById('music');
+    const msgs = [
+        "May your smile shine brighter than the stars! ✨",
+        "Wishing you love, laughter, and infinite joy! ❤️",
+        "Another year more beautiful, intelligent, and kind. 🌹",
+        "Happy Birthday to the Queen of our hearts! 👑"
+    ];
+    let msgIndex = 0;
+
+    function startShow() {
+        music.play();
+        fireConfetti();
+        // Trigger multiple fireworks
+        for(let i=0; i<5; i++) setTimeout(createRandomFirework, i*300);
+    }
+
+    function nextMessage() {
+        const p = document.getElementById('message');
+        p.style.opacity = 0;
+        setTimeout(() => {
+            p.innerText = msgs[msgIndex];
+            p.style.opacity = 1;
+            msgIndex = (msgIndex + 1) % msgs.length;
+            createRandomFirework();
+        }, 300);
+    }
+
+    // --- 4. ADVANCED CANVAS ANIMATION ENGINE ---
+    const canvas = document.getElementById('canvas-container');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let particles = [];
+    
+    // Resize handling
+    window.addEventListener('resize', () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    });
+
+    // Mouse Trail Variables
+    let mouse = { x: null, y: null };
+    window.addEventListener('mousemove', (e) => {
+        mouse.x = e.x;
+        mouse.y = e.y;
+        for(let i=0; i<3; i++){
+            particles.push(new Particle(mouse.x, mouse.y, 'trail'));
+        }
+    });
+
+    window.addEventListener('click', (e) => {
+        for(let i=0; i<30; i++){
+            particles.push(new Particle(e.x, e.y, 'explosion'));
+        }
+        createRandomFirework();
+    });
+
+    // Particle Class
+    class Particle {
+        constructor(x, y, type) {
+            this.x = x;
+            this.y = y;
+            this.type = type;
+            this.size = Math.random() * 5 + 1;
+            
+            if(type === 'trail') {
+                this.speedX = Math.random() * 2 - 1;
+                this.speedY = Math.random() * 2 - 1;
+                this.color = 'rgba(255, 255, 255, 0.8)';
+                this.decay = 0.02;
+            } else if (type === 'explosion') {
+                this.speedX = Math.random() * 6 - 3;
+                this.speedY = Math.random() * 6 - 3;
+                this.color = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                this.decay = 0.015;
+            } else if (type === 'confetti') {
+                this.speedX = Math.random() * 4 - 2;
+                this.speedY = Math.random() * 5 + 2; // fall down
+                this.color = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                this.decay = 0.005; // last longer
+                this.y = -10; // start at top
+            }
+        }
+
+        update() {
+            this.x += this.speedX;
+            this.y += this.speedY;
+            if (this.size > 0.1) this.size -= this.decay;
+        }
+
+        draw() {
+            ctx.fillStyle = this.color;
+            ctx.beginPath();
+            if (this.type === 'confetti') {
+                ctx.rect(this.x, this.y, this.size*2, this.size); // Rectangles for confetti
+            } else {
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); // Circles for others
+            }
+            ctx.fill();
+        }
+    }
+
+    function fireConfetti() {
+        for (let i = 0; i < 100; i++) {
+            particles.push(new Particle(Math.random()*canvas.width, 0, 'confetti'));
+        }
+    }
+    
+    function createRandomFirework() {
+        let x = Math.random() * canvas.width;
+        let y = Math.random() * canvas.height;
+        for(let i=0; i<30; i++){
+            particles.push(new Particle(x, y, 'explosion'));
+        }
+    }
+
+    // Animation Loop
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (let i = 0; i < particles.length; i++) {
+            particles[i].update();
+            particles[i].draw();
+            if (particles[i].size <= 0.1 || particles[i].y > canvas.height) {
+                particles.splice(i, 1);
+                i--;
+            }
+        }
+        requestAnimationFrame(animate);
+    }
+    animate();
+
+</script>
+</body>
+</html>
